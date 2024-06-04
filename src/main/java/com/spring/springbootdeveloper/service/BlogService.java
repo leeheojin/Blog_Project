@@ -3,6 +3,7 @@ package com.spring.springbootdeveloper.service;
 import com.spring.springbootdeveloper.domain.Article;
 import com.spring.springbootdeveloper.dto.AddArticleRequest;
 import com.spring.springbootdeveloper.repository.BlogRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,16 @@ public class BlogService {
 
     public void delete(Long id){
         blogRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Article update(Long id, AddArticleRequest request){
+        Article article = blogRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("not Found: "+id));
+
+        article.update(request.getTitle(), request.getContent());
+
+        return article;
     }
     
 }
