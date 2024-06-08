@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaAuditing // created_at, update_at을 자동 업데이트
+@EnableJpaAuditing// created_at, update_at을 자동 업데이트
 @SpringBootApplication
 public class SpringbootDeveloperApplication {
 

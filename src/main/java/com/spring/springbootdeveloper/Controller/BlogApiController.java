@@ -5,6 +5,8 @@ import com.spring.springbootdeveloper.dto.AddArticleRequest;
 import com.spring.springbootdeveloper.dto.ArticleResponse;
 import com.spring.springbootdeveloper.service.BlogService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.List;
 @RestController
 public class BlogApiController {
     private final BlogService blogService;
+    private static final Logger logger = LoggerFactory.getLogger(BlogApiController.class);
 
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
@@ -47,7 +50,7 @@ public class BlogApiController {
     @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id){
         blogService.delete(id);
-
+        logger.info("Received DELETE request with ID: " + id);
         return ResponseEntity.ok()
                 .build();
     }
@@ -55,7 +58,6 @@ public class BlogApiController {
     @PutMapping("/api/articles/{id}")
     public ResponseEntity<Article> updateArticle(@PathVariable Long id, @RequestBody AddArticleRequest request) {
         Article updatedArticle=blogService.update(id, request);
-
         return ResponseEntity.ok()
                 .body(updatedArticle);
     }
